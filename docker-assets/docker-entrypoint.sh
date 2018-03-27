@@ -8,14 +8,12 @@
 bundle install
 
 # Provision Database.
-if [ ! -e /var/tmp/first_run_completed ]; then
-  echo "Standing up database."
-  rake db:setup
-  touch /var/tmp/first_run_completed
-else
-  echo "Running database migrations."
-  rake db:migrate
-fi
+echo "Standing up database."
+rake db:setup
+echo "Running database migrations."
+rake db:migrate
+echo "Seeding database"
+rake db:seed
 
 # Set out SECRET_KEY
 if [ "$SECRET_KEY" = "" ]; then
